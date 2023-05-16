@@ -1,0 +1,29 @@
+﻿ID,Age,Sex,Race,TrainHx(years),DaysPerWeek,Music,PrefGenre,NonPrefGenre,Height(cm),Weight(kg),1-RM(lbs),Pref_TotalReps,Pref_Motivation,NP_TotalReps,NP_Motivation
+1,22,M,W,7,5,Yes,Rap,Country,178,107,315,15,85,15,71
+3,22,M,W,7,6,Yes,Dance/ Elec,Pop,171,84.55,260,13,31,13,81
+5,20,M,W,3,5,Yes,Rap,Country,169,78.64,240,14,91.5,13,80
+8,20,M,W,5,3,Yes,Pop,Dance/ Electric,180,83.64,245,16,94,15,81
+9,19,M,W,4,2,Yes,Rock/ Alt,R+B/Hip Hop,182,75.45,205,17,62,17,40
+14,22,M,W,6,5,Yes,Rock/ Alt,Country,168,79.55,225,13,85,12,31
+15,20,M,W,5,3.5,No,Rap,Country,164.5,91.36,305,17,100,16,92
+16,21,M,W,2.5,5,Yes,Rock/ Alt,Country,170,84.55,255,13,41,13,60
+18,18,M,H/L,1.5,5,Sometimes,Rap,Country,184,90.91,215,15,78.5,13,25
+19,23,M,W,9,4,Yes,Rock,Country,170,82.73,275,12,62,14,79
+20,18,M,W,0.75,2,Yes,Rap,Country,182,78.47,160,17,70.5,15,37
+21,20,M,W,7,4,Yes,Rap,Country,169,90,290,14,78,15,82.5
+22,21,M,W,5,5,Sometimes,R+B/ Hip Hop,Pop,172,85.91,245,11,43.5,11,63.2
+23,19,M,W,2,3,Yes,Rap,Country,178,77.61,195,12,54.2,15,71
+24,19,M,W,8,3,Yes,Pop,Dance/ Electric,175,79.83,220,12,84,9,63.5
+27,20,M,W,3.5,5,Yes,Rap,Dance/ Electric,183,84.37,215,12,78,13,32
+30,23,M,W,6,3,Yes,Rap,Dance/ Electric,169,71.21,240,15,83,14,69
+31,23,M,W and A,5.5,6,Yes,Rock,Rap,179,95.46,330,12,37,12,70
+32,19,M,W,3.5,4,Yes,Rap,Country,180,121.56,315,,,12,50.7
+34,21,M,H/L,7,5,Yes,Rap,Dance/ Electric,178,110.91,325,,,12,8
+36,19,M,BAA,no answer,5,Yes,Rap,Country,180,78.2,260,9,76.5,8,13.5
+37,18,M,W,4.5,4,Sometimes,Rock,Dance/ Electric,166,85,245,12,62.5,14,39
+38,20,M,W,2,2,Yes,Rock,Country,178,74.1,170,14,70,16,94.3
+39,22,M,BAA,3,4,Yes,Rap,Country,174,70.31,155,12,100,13,100
+47,22,M,A,2,3.5,Yes,Rap,Country,177,73.48,195,11,73,11,58
+50,21,M,W,7.5,3,Yes,Rap,Country,178.5,82.55,205,12,87.5,12,68
+51,21,M,BAA,7,5,Yes,Rap,Country,186,125.65,342.5,11,58,11,11
+53,19,M,W,6,6,Yes,Rap,Country,176,85.28,235,10,72.5,11,5.05
