@@ -26,7 +26,7 @@ rep_data_long <- rep_data %>%
   gather(key = "genre", value = "total_reps", Pref_TotalReps, NP_TotalReps)
 head(rep_data_long, 3)
 
-# Descriptives ---------------
+# Descriptives Total Repetitions ---------------
 
 replication_desc <- rep_data_long %>%
   group_by(genre) %>%
@@ -36,7 +36,7 @@ replication_desc <- rep_data_long %>%
 
 # Resolving assumptions  ---------------------------------------
 
-# Distribution check ---------------------------------------
+## Distribution check 
 
 ggplot(rep_data_long, aes(total_reps)) +
   geom_histogram(color="black", fill="white", 
@@ -46,7 +46,7 @@ ggplot(rep_data_long, aes(genre, total_reps, color = genre)) +
   geom_boxplot(show.legend = FALSE) +
   theme_minimal()
 
-### Outliers check -----------------------------------
+### Outliers check 
 
 rep_data <- rep_data %>% 
   mutate(differences =  Pref_TotalReps - NP_TotalReps) 
@@ -54,37 +54,38 @@ rep_data <- rep_data %>%
 rep_data %>%
   identify_outliers(differences)
 
-### Normality check  --------------------------------
+### Normality check  
 
 rep_data %>% shapiro_test(differences) 
 
-# Paired t-test -----------------------------
+# Paired t-test Total Reps -----------------------------
 
 replication_ttest <- t.test(total_reps ~ genre, rep_data_long, 
                   alternative = "two.sided", paired = TRUE, conf.level = 0.95) %>%
   tidy()
 replication_ttest
 
-# Effect size calculation ------
+# Total reps effect size calculation ------
 
-## Calculate replication ES  -------
+## Calculate replication effect size  -------
 
 rep_dz <- d.dep.t.diff.t(t = replication_ttest$statistic, n = replication_desc$count[1], a = 0.05)
 rep_dz
 
 ## Original study values ------
 
-ori_pval <- 0.005 
-ori_N <- 12
-reported_es <- 0.84
-ori_m1 <- 10.58
-ori_sd1 <- 2.07
-ori_m2 <- 8.9
-ori_sd2 <- 1.8
+reps_ori_study <- data.frame(
+  ori_pval = 0.005,
+  ori_N = 12,
+  reported_es = 0.84,
+  ori_m1 = 10.58,
+  ori_sd1 = 2.07,
+  ori_m2 = 8.9,
+  ori_sd2 = 1.8)
 
 # Estimating the t-value
 
-quantile = 1 - (ori_pval/2)  # for two-tailed
+quantile = 1 - (reps_ori_study$ori_pval/2)  # for two-tailed
 
 ori_tval <- qt(quantile, df = 11, lower.tail = FALSE) %>%
   abs()
@@ -94,28 +95,29 @@ ori_tval <- qt(quantile, df = 11, lower.tail = FALSE) %>%
 
 #PAIRED SAMPLES - Calculating dz and its CI using t value
 
-ori_dz <- d.dep.t.diff.t(t=ori_tval, n=ori_N, a = 0.05)
+ori_dz <- d.dep.t.diff.t(t=ori_tval, n=reps_ori_study$ori_N, a = 0.05)
 ori_dz
 
 # Cohen's dav
 
-ori_dav <- d.dep.t.avg(m1=ori_m1, m2=ori_m2, sd1=ori_sd1, sd2=ori_sd2, n=ori_N, a = 0.05)
+ori_dav <- d.dep.t.avg(m1=reps_ori_study$ori_m1, m2=reps_ori_study$ori_m2, 
+                       sd1=reps_ori_study$ori_sd1, sd2=reps_ori_study$ori_sd2, 
+                       n=reps_ori_study$ori_N, a = 0.05)
 ori_dav
 
 # The reported effect size of 0.84 does not seem to be dz 
 # It seems closest to calculations of dav
 
-# Z-test --------
+# Total repetitions z-test --------
 
 rep_test <- compare_smd(
   smd1 = rep_dz$d,
   n1 = replication_desc$count[1],
-  smd2 = reported_es,
+  smd2 = reps_ori_study$reported_es,
   n2 = 12,
   paired = TRUE,
   alternative = "two.sided")
 rep_test
-
 
 # Motivation paired t-test replication sample -----------------------------------------------------------
 
@@ -173,4 +175,49 @@ motivation_dz <- d.dep.t.diff.t(t=motivation_results$statistic, n=motivation_sum
   as.data.frame()
 motivation_dz
 
+## Motivation original study values ------
+# have to conservatively estimate the p-value
+mot_ori_study <- data.frame(
+  ori_pval = 0.00099,
+  ori_N = 12,
+  reported_es = 5.90,
+  ori_m1 = 80.4,
+  ori_sd1 = 11.2,
+  ori_m2 = 18.8,
+  ori_sd2 = 9.29)
 
+# Estimating the t-value
+
+mot_quantile = 1 - (mot_ori_study$ori_pval/2)  # for two-tailed
+
+mot_ori_tval <- qt(mot_quantile, df = 11, lower.tail = FALSE) %>%
+  abs()
+
+# Confirming the reported effect size (d = 0.84)
+#Calculating original ES and its CI
+
+#PAIRED SAMPLES - Calculating dz and its CI using t value
+
+mot_ori_dz <- d.dep.t.diff.t(t=mot_ori_tval, n=mot_ori_study$ori_N, a = 0.05)
+mot_ori_dz
+
+# Cohen's dav
+
+mot_ori_dav <- d.dep.t.avg(m1=mot_ori_study$ori_m1, m2=mot_ori_study$ori_m2, 
+                       sd1=mot_ori_study$ori_sd1, sd2=mot_ori_study$ori_sd2, 
+                       n=mot_ori_study$ori_N, a = 0.05)
+mot_ori_dav
+
+# The reported effect size of 5.90 does not seem to be dz 
+# It seems closest to calculations of dav
+
+# Motivation z-test --------
+
+mot_rep_test <- compare_smd(
+  smd1 = motivation_dz$d,
+  n1 = motivation_summary$count[1],
+  smd2 = mot_ori_study$reported_es,
+  n2 = 12,
+  paired = TRUE,
+  alternative = "two.sided")
+mot_rep_test
