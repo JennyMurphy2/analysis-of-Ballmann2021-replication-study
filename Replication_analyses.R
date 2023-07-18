@@ -175,6 +175,10 @@ motivation_dz <- d.dep.t.diff.t(t=motivation_results$statistic, n=motivation_sum
   as.data.frame()
 motivation_dz
 
+motivation_dz <- motivation_dz %>%
+  select(d, dlow, dhigh, n, df, p) %>%
+  abs()
+
 ## Motivation original study values ------
 # have to conservatively estimate the p-value
 mot_ori_study <- data.frame(

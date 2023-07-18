@@ -121,14 +121,33 @@ data_mot_afx
 
 summary(data_mot_afx)
 
-mot_data_emm <- emmeans::emmeans(data_mot_afx, ~Sex, model = "multivariate")
-mot_data_emm
+mot_data_emm_sex <- emmeans::emmeans(data_mot_afx, ~Sex, model = "multivariate")
+mot_data_emm_sex
+
+
+mot_data_emm_genre <- emmeans::emmeans(data_mot_afx, ~genre, model = "multivariate")
+mot_data_emm_genre
 
 ### Post hoc contrasts ----------
 
-posthocresults <- pairs(mot_data_emm, adjust = "bon") %>%
+# Sex
+sex_posthocresults <- pairs(mot_data_emm_sex, adjust = "bon") %>%
   broom::tidy(conf.int = T)
-posthocresults
+sex_posthocresults
+
+# Sex post hoc effect size
+d.dep.t.diff.t(t=sex_posthocresults$statistic, n=47, a = 0.05) %>%
+  as.data.frame()
+
+# Genre
+
+genre_posthocresults <- pairs(mot_data_emm_genre, adjust = "bon") %>%
+  broom::tidy(conf.int = T)
+genre_posthocresults
+
+# Genre post hoc effect size
+d.dep.t.diff.t(t=genre_posthocresults$statistic, n=47, a = 0.05) %>%
+  as.data.frame()
 
 ### Resolving assumptions  --------------
 # Checking distribution
@@ -279,6 +298,7 @@ RPE_results
 
 RPE_dz <- d.dep.t.diff.t(t=RPE_results$statistic, n=RPE_summary$count[1], a = 0.05) %>%
   as.data.frame()
+RPE_dz
 
 # Rating paired t-test -----------------------------------------------------------
 
