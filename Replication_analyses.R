@@ -51,6 +51,9 @@ ggplot(rep_data_long, aes(genre, total_reps, color = genre)) +
 rep_data <- rep_data %>% 
   mutate(differences =  Pref_TotalReps - NP_TotalReps) 
 
+sd_diff <- sd(rep_data$differences)
+mean_diff <- mean(rep_data$differences)
+
 rep_data %>%
   identify_outliers(differences)
 
