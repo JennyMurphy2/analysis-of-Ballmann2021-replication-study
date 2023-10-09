@@ -20,6 +20,9 @@ rep_data <- data1 %>%
   select(ID, Pref_TotalReps, NP_TotalReps) %>%
   drop_na()
 
+rep_data <- rep_data %>% 
+  mutate(differences =  Pref_TotalReps - NP_TotalReps) 
+
 # Convert to long dataset
 
 rep_data_long <- rep_data %>%
@@ -32,7 +35,9 @@ replication_desc <- rep_data_long %>%
   group_by(genre) %>%
   summarise(count = n(),
             mean = mean(total_reps),
-            sd = sd(total_reps))
+            sd = sd(total_reps)) %>%
+  mutate(mean_diff = mean(rep_data$differences), 
+         sd_diff = sd(rep_data$differences))
 
 # Resolving assumptions  ---------------------------------------
 
@@ -47,12 +52,6 @@ ggplot(rep_data_long, aes(genre, total_reps, color = genre)) +
   theme_minimal()
 
 ### Outliers check 
-
-rep_data <- rep_data %>% 
-  mutate(differences =  Pref_TotalReps - NP_TotalReps) 
-
-sd_diff <- sd(rep_data$differences)
-mean_diff <- mean(rep_data$differences)
 
 rep_data %>%
   identify_outliers(differences)
@@ -119,7 +118,7 @@ rep_test <- compare_smd(
   smd2 = reps_ori_study$reported_es,
   n2 = 12,
   paired = TRUE,
-  alternative = "two.sided")
+  alternative = "less")
 rep_test
 
 # Motivation paired t-test replication sample -----------------------------------------------------------
@@ -226,5 +225,5 @@ mot_rep_test <- compare_smd(
   smd2 = mot_ori_study$reported_es,
   n2 = 12,
   paired = TRUE,
-  alternative = "two.sided")
+  alternative = "less")
 mot_rep_test

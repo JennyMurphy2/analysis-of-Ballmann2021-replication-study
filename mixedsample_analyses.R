@@ -136,7 +136,7 @@ sex_posthocresults <- pairs(mot_data_emm_sex, adjust = "bon") %>%
 sex_posthocresults
 
 # Sex post hoc effect size
-d.dep.t.diff.t(t=sex_posthocresults$statistic, n=47, a = 0.05) %>%
+d.ind.t.t(t=sex_posthocresults$statistic, n1=28, n2=19, a = 0.05) %>%
   as.data.frame()
 
 # Genre
